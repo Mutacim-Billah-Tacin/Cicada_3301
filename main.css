@@ -1,0 +1,240 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+:root {
+	--c64-black: #000000;
+	--c64-white: #ffffff;
+	--c64-red: #68372b;
+	--c64-cyan: #70a4b2;
+	--c64-purple: #6f3d86;
+	--c64-green: #588d43;
+	--c64-blue: #352879;
+	--c64-yellow: #b8c76f;
+	--c64-orange: #6f4f25;
+	--c64-brown: #433900;
+	--c64-light-red: #9a6759;
+	--c64-dark-grey: #444444;
+	--c64-grey: #6c6c6c;
+	--c64-light-green: #9ad284;
+	--c64-light-blue: #6c5eb5;
+	--c64-light-grey: #959595;
+}
+
+body {
+	font-family: "Press Start 2P", cursive;
+	background-color: var(--c64-dark-grey);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	overflow: hidden;
+}
+
+.c64-container {
+	width: 90vw;
+	max-width: 800px;
+	height: 90vh;
+	max-height: 600px;
+	background-color: var(--c64-black);
+	border: 10px solid var(--c64-grey);
+	border-radius: 15px;
+	box-shadow: 0 0 40px rgba(0, 0, 0, 0.8);
+	padding: 10px;
+	position: relative;
+	overflow: hidden;
+}
+
+.c64-screen {
+	width: 100%;
+	height: 100%;
+	background-color: var(--c64-blue);
+	display: flex;
+	flex-direction: column;
+	color: var(--c64-light-blue);
+	padding: 20px;
+	overflow: hidden;
+	position: relative;
+	transition: background-color 0.1s ease;
+}
+
+.header {
+	text-align: center;
+	margin-bottom: 20px;
+}
+
+.header h1 {
+	color: var(--c64-white);
+	font-size: 1.2rem;
+	margin-bottom: 10px;
+}
+
+.header h2 {
+	color: var(--c64-light-grey);
+	font-size: 0.8rem;
+	margin-bottom: 5px;
+}
+
+.cicada-container {
+	flex: 1;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+	overflow: hidden;
+}
+
+#cicada-animation {
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+
+.cicada-point {
+	position: absolute;
+	width: 4px;
+	height: 4px;
+	background-color: var(--c64-cyan);
+	border-radius: 0;
+	transition: transform 0.5s ease;
+}
+
+.cicada-point.pulse {
+	animation: pulsePoint 0.3s ease-in-out;
+}
+
+.cicada-point.swarm-pulse {
+	animation: swarmPulse 0.6s cubic-bezier(0.5, 0, 0.75, 1) infinite alternate;
+}
+
+@keyframes pulsePoint {
+	0% {
+		transform: scale(1);
+	}
+	50% {
+		transform: scale(2.5);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+@keyframes swarmPulse {
+	0% {
+		transform: scale(1) rotate(0deg);
+		opacity: 0.7;
+	}
+	100% {
+		transform: scale(1.5) rotate(10deg);
+		opacity: 1;
+	}
+}
+
+.footer {
+	height: 150px;
+	border-top: 2px solid var(--c64-white);
+	padding-top: 10px;
+	position: relative;
+}
+
+.code-section {
+	display: flex;
+	margin-bottom: 10px;
+	position: relative;
+	height: 100px;
+	overflow-y: auto;
+	scrollbar-width: none;
+}
+
+.code-section::-webkit-scrollbar {
+	display: none;
+}
+
+#code-display {
+	font-family: "Press Start 2P", cursive;
+	font-size: 0.7rem;
+	line-height: 1.4;
+	color: var(--c64-yellow);
+	white-space: pre;
+	position: relative;
+}
+
+.cursor {
+	color: var(--c64-white);
+	font-size: 0.7rem;
+	animation: blink 1s step-start infinite;
+	position: absolute;
+	display: inline-block;
+	z-index: 5;
+}
+
+@keyframes blink {
+	0%,
+	100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0;
+	}
+}
+
+.info-text {
+	color: var(--c64-light-green);
+	font-size: 0.8rem;
+	margin-top: 30px;
+	transition: color 0.3s ease;
+}
+
+.credit {
+	position: absolute;
+	bottom: 5px;
+	right: 5px;
+	font-size: 0.6rem;
+	color: var(--c64-light-grey);
+	z-index: 12;
+}
+
+.credit a {
+	color: var(--c64-light-grey);
+	text-decoration: none;
+}
+
+.credit a:hover {
+	color: var(--c64-white);
+}
+
+.c64-screen::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(
+		to bottom,
+		rgba(0, 0, 0, 0) 50%,
+		rgba(0, 0, 0, 0.15) 50%
+	);
+	background-size: 100% 3px;
+	pointer-events: none;
+	z-index: 10;
+}
+
+.c64-screen::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: radial-gradient(
+		circle at center,
+		transparent 50%,
+		rgba(18, 16, 16, 0.35) 100%
+	);
+	pointer-events: none;
+	z-index: 11;
+	opacity: 0.7;
+}
